@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('incomes', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->constrained('users','id');
+            $table->uuid('id')->primary();
+            $table->uuid('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('name');
             $table->integer('amount');
             $table->date('date');
-            $table->string('comment')->nullable(true);
+            $table->string('comment')->nullable();
             $table->timestamps();
         });
     }
