@@ -34,6 +34,9 @@ const { incomes } = usePage().props;
           <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
             コメント
           </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            操作
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -52,6 +55,9 @@ const { incomes } = usePage().props;
           </td>
           <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
             {{ income.comment }}
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <Link :href="`/income/edit/${income.id}`" class="text-blue-500 hover:text-blue-800">編集</Link>
           </td>
         </tr>
       </tbody>

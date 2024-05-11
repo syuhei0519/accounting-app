@@ -4,26 +4,34 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Link, useForm } from '@inertiajs/vue3';
+import { Link, useForm, usePage } from '@inertiajs/vue3';
+
+const { income } = usePage().props;
 
 const form = useForm({
-    name: '',
-    amount: 0,
-    comment: '',
-    date: '',
+    name: income.name,
+    amount: income.amount,
+    comment: income.comment,
+    date: income.date,
 });
 
 const submit = () => {
-    form.post(route('income.store'));
+    form.put(route('income.update', { incomeId: income.id }));
+};
+
+const deleteIncome = () => {
+    if (confirm('本当に削除しますか？')) {
+        form.delete(route('income.destroy', income.id));
+    }
 };
 
 </script>
 
 <template>
-    <Head title="収入登録"></Head>
+    <Head title="収入編集"></Head>
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">収入登録</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">収入編集</h2>
         </template>
         <form @submit.prevent="submit">
             <div>
@@ -46,7 +54,8 @@ const submit = () => {
                 <TextInput v-model="form.comment" type="text" name="comment" id="comment" />
                 <InputError :message="form.errors.comment" />
             </div>
-            <PrimaryButton type="submit" :disabled="form.processing" class="mt-4">登録</PrimaryButton>
+            <PrimaryButton type="submit" :disabled="form.processing" class="mt-4">編集</PrimaryButton>
+            <PrimaryButton @click="deleteIncome" type="button" class="ml-2 mt-4 bg-red-500 hover:bg-red-700">削除</PrimaryButton>
             <Link href="/income" class="mt-4">戻る</Link>
         </form>
     </AuthenticatedLayout>
