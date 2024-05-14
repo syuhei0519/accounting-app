@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\SpendController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,6 +33,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/income/edit/{incomeId}', [IncomeController::class, 'edit'])->name('income.edit');
     Route::put('/income/edit/{incomeId}', [IncomeController::class, 'update'])->name('income.update');
     Route::delete('/income/{income}', [IncomeController::class, 'destroy'])->name('income.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/spend', [SpendController::class, 'index'])->name('spend.index');
+    Route::get('/spend/create', [SpendController::class, 'create'])->name('spend.create');
+    Route::post('/spend', [SpendController::class, 'store'])->name('spend.store');
+    Route::get('/spend/edit/{spendId}', [SpendController::class, 'edit'])->name('spend.edit');
+    Route::put('/spend/edit/{spendId}', [SpendController::class, 'update'])->name('spend.update');
+    Route::delete('/spend/{spend}', [SpendController::class, 'destroy'])->name('spend.destroy');
 });
 
 require __DIR__.'/auth.php';
