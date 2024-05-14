@@ -86,4 +86,16 @@ class IncomeController extends Controller
         return redirect()->route('income.index')->with('status', '収入情報が更新されました。');
     }
 
+    public function destroy($incomeId) {
+        $income = Income::find($incomeId);
+
+        if (!$income) {
+            abort(404, '収入情報は存在しません');
+        }
+
+        $income->delete();
+
+        return redirect()->route('income.index')->with('status', '収入情報が削除されました。');
+    }
+
 }

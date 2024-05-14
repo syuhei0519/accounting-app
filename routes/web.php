@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/income', [IncomeController::class, 'store'])->name('income.store');
     Route::get('/income/edit/{incomeId}', [IncomeController::class, 'edit'])->name('income.edit');
     Route::put('/income/edit/{incomeId}', [IncomeController::class, 'update'])->name('income.update');
-    // Route::delete('/income/{income}', [IncomeController::class, 'destroy'])->name('income.destroy');
+    Route::delete('/income/{income}', [IncomeController::class, 'destroy'])->name('income.destroy');
 });
 
 require __DIR__.'/auth.php';
