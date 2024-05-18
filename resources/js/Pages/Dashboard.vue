@@ -28,6 +28,11 @@ import { Link } from '@inertiajs/vue3';
                     <Link :href="`/spend`" class="text-blue-500 hover:text-blue-800">支出一覧</Link>
                 </div>
             </div>
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <Link :href="`/incomeCategory`" class="text-blue-500 hover:text-blue-800">収入カテゴリー一覧</Link>
+                </div>
+            </div>
         </div>
     </AuthenticatedLayout>
 </template>

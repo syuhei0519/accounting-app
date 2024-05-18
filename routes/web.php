@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\IncomeCategoryController;
 use App\Http\Controllers\SpendController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/income/edit/{incomeId}', [IncomeController::class, 'edit'])->name('income.edit');
     Route::put('/income/edit/{incomeId}', [IncomeController::class, 'update'])->name('income.update');
     Route::delete('/income/{income}', [IncomeController::class, 'destroy'])->name('income.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/incomeCategory', [IncomeCategoryController::class, 'index'])->name('incomeCategory.index');
+    Route::get('/incomeCategory/create', [IncomeCategoryController::class, 'create'])->name('incomeCategory.create');
+    Route::post('/incomeCategory', [IncomeCategoryController::class, 'store'])->name('incomeCategory.store');
+    Route::get('/incomeCategory/edit/{incomeCategoryId}', [IncomeCategoryController::class, 'edit'])->name('incomeCategory.edit');
+    Route::put('/incomeCategory/edit/{incomeCategoryId}', [IncomeCategoryController::class, 'update'])->name('incomeCategory.update');
+    // Route::delete('/incomeCategory/{income}', [IncomeCategoryController::class, 'destroy'])->name('incomeCategory.destroy');
 });
 
 Route::middleware('auth')->group(function () {
