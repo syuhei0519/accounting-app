@@ -13,6 +13,7 @@ class Income extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'id',
+        'category_id',
         'user_id',
         'name',
         'comment',

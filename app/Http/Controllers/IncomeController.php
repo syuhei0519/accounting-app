@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Income;
+use App\Models\IncomeCategory;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -21,18 +22,29 @@ class IncomeController extends Controller
                'amount',
                'date',
                'comment',
-               'id'
+               'id',
+               'category_id'
+            ]),
+            'incomeCategories' => IncomeCategory::all([
+                'name',
+                'id'
             ])
         ]);
     }
 
     public function create() {
-        return Inertia::render('Income/Create');
+        return Inertia::render('Income/Create',[
+            'income_categories' => IncomeCategory::all([
+                'id',
+                'name'
+            ])
+        ]);
     }
 
     public function store(Request $request) {
 
         $attributes = Validation::validate([
+            'category_id' => ['required'],
             'name'  => ['required', 'max:255'],
             'comment' => ['max:255'],
             'amount'  => ['required']
@@ -40,6 +52,7 @@ class IncomeController extends Controller
 
         Income::create([
             'id' => Str::uuid(),
+            'category_id' => $request->category_id,
             'user_id' => 'f9193a07-89eb-4bb2-84ed-58aa4a365556',
             'name' => $request->name,
             'comment' => $request->comment,

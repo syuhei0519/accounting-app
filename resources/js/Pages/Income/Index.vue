@@ -5,7 +5,7 @@ import { Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 
-const { incomes } = usePage().props;
+const { incomes, incomeCategories } = usePage().props;
 
 </script>
 <template>
@@ -21,6 +21,9 @@ const { incomes } = usePage().props;
         <tr>
           <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
             #
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            カテゴリー
           </th>
           <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
             名前
@@ -43,6 +46,9 @@ const { incomes } = usePage().props;
         <tr v-for="(income, index) in incomes" :key="income.id">
           <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
             {{ index + 1 }}
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            {{ incomeCategories.find(category => category.id === income.category_id).name }}
           </td>
           <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
             {{ income.name }}

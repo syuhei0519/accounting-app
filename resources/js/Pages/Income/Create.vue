@@ -4,9 +4,12 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Link, useForm } from '@inertiajs/vue3';
+import { Link, useForm, usePage } from '@inertiajs/vue3';
+
+const { income_categories } = usePage().props;
 
 const form = useForm({
+    category_id: income_categories.id,
     name: '',
     amount: 0,
     comment: '',
@@ -26,6 +29,13 @@ const submit = () => {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">収入登録</h2>
         </template>
         <form @submit.prevent="submit">
+            <div>
+                <InputLabel for="category_id" value="収入カテゴリー" />
+                <select v-model="form.category_id" id="category_id">
+                    <option v-for="category in income_categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+                </select>
+                <InputError :message="form.errors.category_id" />
+            </div>
             <div>
                 <InputLabel for="name" value="収入名" />
                 <TextInput v-model="form.name" type="text" name="name" id="name" />
