@@ -6,7 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
-const { incomeCategory } = usePage().props;
+const { incomeCategory, isRegisteredIncomeByCategory } = usePage().props;
 
 const form = useForm({
     name: incomeCategory.name,
@@ -18,11 +18,11 @@ const submit = () => {
     form.put(route('incomeCategory.update', { incomeCategoryId: incomeCategory.id }));
 };
 
-// const deleteIncomeCategory = () => {
-//     if (confirm('本当に削除しますか？')) {
-//         form.delete(route('incomeCategory.destroy', incomeCategory.id));
-//     }
-// };
+const deleteIncomeCategory = () => {
+    if (confirm('本当に削除しますか？')) {
+        form.delete(route('incomeCategory.destroy', incomeCategory.id));
+    }
+};
 
 </script>
 
@@ -49,7 +49,7 @@ const submit = () => {
                 <InputError :message="form.errors.comment" />
             </div>
             <PrimaryButton type="submit" :disabled="form.processing" class="mt-4">編集</PrimaryButton>
-            <!-- <PrimaryButton @click="IncomeCategory" type="button" class="ml-2 mt-4 bg-red-500 hover:bg-red-700">削除</PrimaryButton> -->
+            <PrimaryButton v-if='!isRegisteredIncomeByCategory' @click="deleteIncomeCategory" type="button" class="ml-2 mt-4 bg-red-500 hover:bg-red-700">削除</PrimaryButton>
             <Link href="/incomeCategory" class="mt-4">戻る</Link>
         </form>
     </AuthenticatedLayout>

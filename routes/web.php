@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/incomeCategory', [IncomeCategoryController::class, 'store'])->name('incomeCategory.store');
     Route::get('/incomeCategory/edit/{incomeCategoryId}', [IncomeCategoryController::class, 'edit'])->name('incomeCategory.edit');
     Route::put('/incomeCategory/edit/{incomeCategoryId}', [IncomeCategoryController::class, 'update'])->name('incomeCategory.update');
-    // Route::delete('/incomeCategory/{income}', [IncomeCategoryController::class, 'destroy'])->name('incomeCategory.destroy');
+    Route::delete('/incomeCategory/{incomeCategoryId}', [IncomeCategoryController::class, 'destroy'])->name('incomeCategory.destroy');
 });
 
 Route::middleware('auth')->group(function () {

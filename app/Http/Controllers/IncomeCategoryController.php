@@ -45,13 +45,15 @@ class IncomeCategoryController extends Controller
 
     public function edit($incomeCategoryId) {
         $incomeCategory = IncomeCategory::find($incomeCategoryId);
+        $incomeCtg = new IncomeCategory();
 
         if (!$incomeCategory) {
             abort(404, '収入カテゴリー情報は存在しません');
         }
 
         return Inertia::render('IncomeCategory/Edit', [
-            'incomeCategory' => $incomeCategory
+            'incomeCategory' => $incomeCategory,
+            'isRegisteredIncomeByCategory' => $incomeCtg->isRegisteredIncomeByCategory($incomeCategoryId)
         ]);
     }
 
@@ -75,5 +77,18 @@ class IncomeCategoryController extends Controller
         ]);
 
         return redirect()->route('incomeCategory.index')->with('status', '収入カテゴリー情報が更新されました。');
+    }
+
+    public function destroy($incomeCategoryId) {
+        $incomeCategory = IncomeCategory::find($incomeCategoryId);
+
+        if (!$incomeCategory) {
+            abort(404, '収入カテゴリー情報は存在しません');
+        }
+
+        $incomeCategory->delete();
+
+        return redirect()->route('incomeCategory.index')->with('status', '収入カテゴリー情報が削除されました。');
+
     }
 }
