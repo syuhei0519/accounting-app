@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Spend;
+use App\Models\SpendCategory;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,12 @@ class SpendController extends Controller
     }
 
     public function create() {
-        return Inertia::render('Spend/Create');
+        return Inertia::render('Spend/Create',[
+            'spend_categories' => SpendCategory::all([
+                'id',
+                'name'
+            ])
+        ]);
     }
 
     public function store(Request $request) {
@@ -40,6 +46,7 @@ class SpendController extends Controller
 
         Spend::create([
             'id' => Str::uuid(),
+            'category_id' => $request->category_id,
             'user_id' => '56827c0a-92a2-4e7b-8ae9-180213c410da',
             'name' => $request->name,
             'comment' => $request->comment,
