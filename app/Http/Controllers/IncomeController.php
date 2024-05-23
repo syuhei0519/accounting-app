@@ -65,13 +65,20 @@ class IncomeController extends Controller
 
     public function edit($incomeId) {
         $income = Income::find($incomeId);
+        $currentIncomeCategory = $income->category_id;
+
 
         if (!$income) {
             abort(404, '収入情報は存在しません');
         }
 
         return Inertia::render('Income/Edit', [
-            'income' => $income
+            'income' => $income,
+            'currentIncomeCategory' => $currentIncomeCategory,
+            'incomeCategories' => IncomeCategory::all([
+                'name',
+                'id'
+            ])
         ]);
     }
 
@@ -90,6 +97,7 @@ class IncomeController extends Controller
         ]);
 
         $income->update([
+            'category_id' => $request->currentIncomeCategory,
             'name' => $request->name,
             'comment' => $request->comment,
             'amount' => $request->amount,

@@ -6,9 +6,11 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
-const { income } = usePage().props;
+const { income, incomeCategories, currentIncomeCategory } = usePage().props;
 
 const form = useForm({
+    currentIncomeCategory: currentIncomeCategory,
+    category_id: incomeCategories.id,
     name: income.name,
     amount: income.amount,
     comment: income.comment,
@@ -34,6 +36,13 @@ const deleteIncome = () => {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">収入編集</h2>
         </template>
         <form @submit.prevent="submit">
+            <div>
+                <InputLabel for="category_id" value="収入カテゴリー" />
+                <select v-model="form.currentIncomeCategory" id="category_id" name="category_id">
+                    <option v-for="category in incomeCategories" :key="category.id" :value="category.id">{{ category.name }}</option>
+                </select>
+                <InputError :message="form.errors.category_id" />
+            </div>
             <div>
                 <InputLabel for="name" value="収入名" />
                 <TextInput v-model="form.name" type="text" name="name" id="name" />
