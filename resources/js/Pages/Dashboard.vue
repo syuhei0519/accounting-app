@@ -35,7 +35,7 @@ import { Link } from '@inertiajs/vue3';
             </div>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <Link :href="`/spendCategory`" class="text-blue-500 hover:text-blue-800">収入カテゴリー一覧</Link>
+                    <Link :href="`/spendCategory`" class="text-blue-500 hover:text-blue-800">支出カテゴリー一覧</Link>
                 </div>
             </div>
         </div>
