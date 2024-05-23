@@ -2,48 +2,45 @@
 
 namespace Database\Seeders;
 
-use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class IncomeCategoriesSeeder extends Seeder
+class SpendCategoriesSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $params = [
             [
                 'id' => '00000000-0000-0000-0000-000000000001',
                 'user_id' => '56827c0a-92a2-4e7b-8ae9-180213c410da',
-                'name' => '給与',
-                'date' => '2024-05-19'
+                'name' => '家賃',
+                'date' => '2024-05-23'
             ],
             [
                 'id' => '00000000-0000-0000-0000-000000000002',
                 'user_id' => '56827c0a-92a2-4e7b-8ae9-180213c410da',
-                'name' => '賞与',
-                'date' => '2024-05-19'
+                'name' => '食費',
+                'date' => '2024-05-23'
             ],
             [
                 'id' => '00000000-0000-0000-0000-000000000003',
                 'user_id' => '56827c0a-92a2-4e7b-8ae9-180213c410da',
-                'name' => '還付金',
-                'date' => '2024-05-19'
+                'name' => '日用品',
+                'date' => '2024-05-23'
             ],
             [
                 'id' => '00000000-0000-0000-0000-000000000004',
                 'user_id' => '56827c0a-92a2-4e7b-8ae9-180213c410da',
-                'name' => '配当金',
-                'date' => '2024-05-19'
+                'name' => '交通費',
+                'date' => '2024-05-23'
             ],
             [
                 'id' => '00000000-0000-0000-0000-000000000005',
                 'user_id' => '56827c0a-92a2-4e7b-8ae9-180213c410da',
-                'name' => '利子',
-                'date' => '2024-05-19'
+                'name' => '推し活',
+                'date' => '2024-05-23'
             ]
         ];
 
@@ -51,7 +48,7 @@ class IncomeCategoriesSeeder extends Seeder
         foreach ($params as $param) {
             $param['created_at'] = $now;
             $param['updated_at'] = $now;
-            DB::table('income_categories')->insert($param);
+            DB::table('spend_categories')->insert($param);
         }
 
     }

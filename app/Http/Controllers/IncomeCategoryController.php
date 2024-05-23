@@ -34,7 +34,7 @@ class IncomeCategoryController extends Controller
 
         IncomeCategory::create([
             'id' => Str::uuid(),
-            'user_id' => 'f9193a07-89eb-4bb2-84ed-58aa4a365556',
+            'user_id' => '56827c0a-92a2-4e7b-8ae9-180213c410da',
             'name' => $request->name,
             'comment' => $request->comment,
             'date' => $request->date

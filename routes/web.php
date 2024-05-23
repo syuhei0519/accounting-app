@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\IncomeCategoryController;
 use App\Http\Controllers\SpendController;
+use App\Http\Controllers\SpendCategoryController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -52,6 +53,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/spend/edit/{spendId}', [SpendController::class, 'edit'])->name('spend.edit');
     Route::put('/spend/edit/{spendId}', [SpendController::class, 'update'])->name('spend.update');
     Route::delete('/spend/{spend}', [SpendController::class, 'destroy'])->name('spend.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/spendCategory', [SpendCategoryController::class, 'index'])->name('spendCategory.index');
+    Route::get('/spendCategory/create', [SpendCategoryController::class, 'create'])->name('spendCategory.create');
+    Route::post('/spendCategory', [SpendCategoryController::class, 'store'])->name('spendCategory.store');
+    Route::get('/spendCategory/edit/{spendCategoryId}', [SpendCategoryController::class, 'edit'])->name('spendCategory.edit');
+    Route::put('/spendCategory/edit/{spendCategoryId}', [SpendCategoryController::class, 'update'])->name('spendCategory.update');
+    Route::delete('/spendCategory/{spendCategoryId}', [SpendCategoryController::class, 'destroy'])->name('spendCategory.destroy');
 });
 
 require __DIR__.'/auth.php';
