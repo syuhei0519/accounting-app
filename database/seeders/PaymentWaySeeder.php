@@ -7,39 +7,42 @@ use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class SpendCategoriesSeeder extends Seeder
+class PaymentWaySeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     */
     public function run(): void
     {
         $params = [
             [
                 'id' => '00000000-0000-0000-0000-000000000001',
                 'user_id' => '00000000-0000-0000-0000-000000000001',
-                'name' => '家賃',
+                'name' => '振込',
                 'date' => '2024-05-23'
             ],
             [
                 'id' => '00000000-0000-0000-0000-000000000002',
                 'user_id' => '00000000-0000-0000-0000-000000000001',
-                'name' => '食費',
+                'name' => '現金',
                 'date' => '2024-05-23'
             ],
             [
                 'id' => '00000000-0000-0000-0000-000000000003',
                 'user_id' => '00000000-0000-0000-0000-000000000001',
-                'name' => '日用品',
+                'name' => 'クレジットカード',
                 'date' => '2024-05-23'
             ],
             [
                 'id' => '00000000-0000-0000-0000-000000000004',
                 'user_id' => '00000000-0000-0000-0000-000000000001',
-                'name' => '交通費',
+                'name' => 'バーコード決済',
                 'date' => '2024-05-23'
             ],
             [
                 'id' => '00000000-0000-0000-0000-000000000005',
                 'user_id' => '00000000-0000-0000-0000-000000000001',
-                'name' => '推し活',
+                'name' => '電子マネー',
                 'date' => '2024-05-23'
             ]
         ];
@@ -48,8 +51,7 @@ class SpendCategoriesSeeder extends Seeder
         foreach ($params as $param) {
             $param['created_at'] = $now;
             $param['updated_at'] = $now;
-            DB::table('spend_categories')->insert($param);
+            DB::table('payment_ways')->insert($param);
         }
-
     }
 }
