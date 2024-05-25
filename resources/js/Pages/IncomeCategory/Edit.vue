@@ -11,7 +11,6 @@ const { incomeCategory, isRegisteredIncomeByCategory } = usePage().props;
 const form = useForm({
     name: incomeCategory.name,
     comment: incomeCategory.comment,
-    date: incomeCategory.date,
 });
 
 const submit = () => {
@@ -37,11 +36,6 @@ const deleteIncomeCategory = () => {
                 <InputLabel for="name" value="収入カテゴリー名" />
                 <TextInput v-model="form.name" type="text" name="name" id="name" />
                 <InputError :message="form.errors.name" />
-            </div>
-            <div>
-                <InputLabel for="date" value="日付" />
-                <TextInput v-model="form.date" type="date" name="date" id="date" />
-                <InputError :message="form.errors.date" />
             </div>
             <div>
                 <InputLabel for="comment" value="コメント" />

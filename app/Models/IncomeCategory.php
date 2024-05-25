@@ -14,10 +14,8 @@ class IncomeCategory extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'id',
-        'user_id',
         'name',
-        'comment',
-        'date'
+        'comment'
     ];
 
     public $isRegisteredIncomeByCategory = false;

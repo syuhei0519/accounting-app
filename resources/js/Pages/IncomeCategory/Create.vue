@@ -9,7 +9,6 @@ import { Link, useForm } from '@inertiajs/vue3';
 const form = useForm({
     name: '',
     comment: '',
-    date: '',
 });
 
 const submit = () => {
@@ -29,11 +28,6 @@ const submit = () => {
                 <InputLabel for="name" value="収入カテゴリー名" />
                 <TextInput v-model="form.name" type="text" name="name" id="name" />
                 <InputError :message="form.errors.name" />
-            </div>
-            <div>
-                <InputLabel for="date" value="日付" />
-                <TextInput v-model="form.date" type="date" name="date" id="date" />
-                <InputError :message="form.errors.date" />
             </div>
             <div>
                 <InputLabel for="comment" value="コメント" />

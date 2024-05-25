@@ -14,7 +14,6 @@ class IncomeCategoryController extends Controller
         return Inertia::render('IncomeCategory/Index',[
             'incomeCategories' => IncomeCategory::all([
                'name',
-               'date',
                'comment',
                'id'
             ])
@@ -34,10 +33,8 @@ class IncomeCategoryController extends Controller
 
         IncomeCategory::create([
             'id' => Str::uuid(),
-            'user_id' => '56827c0a-92a2-4e7b-8ae9-180213c410da',
             'name' => $request->name,
-            'comment' => $request->comment,
-            'date' => $request->date
+            'comment' => $request->comment
         ]);
 
         return redirect()->route('incomeCategory.index');
@@ -66,14 +63,12 @@ class IncomeCategoryController extends Controller
 
         $attributes = Validation::validate([
             'name'  => ['required', 'max:255'],
-            'comment' => ['max:255'],
-            'date' => ['required', 'date']
+            'comment' => ['max:255']
         ]);
 
         $incomeCategory->update([
             'name' => $request->name,
-            'comment' => $request->comment,
-            'date' => $request->date
+            'comment' => $request->comment
         ]);
 
         return redirect()->route('incomeCategory.index')->with('status', '収入カテゴリー情報が更新されました。');
