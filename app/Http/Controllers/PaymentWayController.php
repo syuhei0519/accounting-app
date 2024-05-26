@@ -2,65 +2,88 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePaymentWayRequest;
-use App\Http\Requests\UpdatePaymentWayRequest;
+use Illuminate\Http\Request;
 use App\Models\PaymentWay;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Request as validation;
+use Illuminate\Support\Str;
 
 class PaymentWayController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    public function index() {
+        return Inertia::render('PaymentWay/Index',[
+            'paymentWays' => PaymentWay::all([
+               'name',
+               'comment',
+               'id'
+            ])
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function create() {
+        return Inertia::render('PaymentWay/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePaymentWayRequest $request)
-    {
-        //
+    public function store(Request $request) {
+
+        $attributes = Validation::validate([
+            'name'  => ['required', 'max:255'],
+            'comment' => ['max:255'],
+        ]);
+
+        PaymentWay::create([
+            'id' => Str::uuid(),
+            'name' => $request->name,
+            'comment' => $request->comment
+        ]);
+
+        return redirect()->route('paymentWay.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(PaymentWay $paymentWay)
-    {
-        //
+    public function edit($paymentWayId) {
+        $paymentWay = PaymentWay::find($paymentWayId);
+        $spendCtg = new PaymentWay();
+
+        if (!$paymentWay) {
+            abort(404, '決済方法情報は存在しません');
+        }
+
+        return Inertia::render('PaymentWay/Edit', [
+            'paymentWay' => $paymentWay,
+            'isRegisteredSpendByPaymentWay' => $spendCtg->isRegisteredSpendByPaymentWay($paymentWayId)
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(PaymentWay $paymentWay)
-    {
-        //
+    public function update(Request $request, $paymentWayId) {
+        $paymentWay = PaymentWay::find($paymentWayId);
+
+        if (!$paymentWay) {
+            abort(404, '決済方法情報は存在しません');
+        }
+
+        $attributes = Validation::validate([
+            'name'  => ['required', 'max:255'],
+            'comment' => ['max:255']
+        ]);
+
+        $paymentWay->update([
+            'name' => $request->name,
+            'comment' => $request->comment
+        ]);
+
+        return redirect()->route('paymentWay.index')->with('status', '決済方法情報が更新されました。');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePaymentWayRequest $request, PaymentWay $paymentWay)
-    {
-        //
-    }
+    public function destroy($paymentWayId) {
+        $paymentWay = PaymentWay::find($paymentWayId);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(PaymentWay $paymentWay)
-    {
-        //
+        if (!$paymentWay) {
+            abort(404, '決済方法情報は存在しません');
+        }
+
+        $paymentWay->delete();
+
+        return redirect()->route('paymentWay.index')->with('status', '決済方法情報が削除されました。');
+
     }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\IncomeCategoryController;
 use App\Http\Controllers\SpendController;
 use App\Http\Controllers\SpendCategoryController;
+use App\Http\Controllers\PaymentWayController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -62,6 +63,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/spendCategory/edit/{spendCategoryId}', [SpendCategoryController::class, 'edit'])->name('spendCategory.edit');
     Route::put('/spendCategory/edit/{spendCategoryId}', [SpendCategoryController::class, 'update'])->name('spendCategory.update');
     Route::delete('/spendCategory/{spendCategoryId}', [SpendCategoryController::class, 'destroy'])->name('spendCategory.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/paymentWay', [PaymentWayController::class, 'index'])->name('paymentWay.index');
+    Route::get('/paymentWay/create', [PaymentWayController::class, 'create'])->name('paymentWay.create');
+    Route::post('/paymentWay', [PaymentWayController::class, 'store'])->name('paymentWay.store');
+    Route::get('/paymentWay/edit/{paymentWayId}', [PaymentWayController::class, 'edit'])->name('paymentWay.edit');
+    Route::put('/paymentWay/edit/{paymentWayId}', [PaymentWayController::class, 'update'])->name('paymentWay.update');
+    Route::delete('/paymentWay/{paymentWayId}', [PaymentWayController::class, 'destroy'])->name('paymentWay.destroy');
 });
 
 require __DIR__.'/auth.php';
