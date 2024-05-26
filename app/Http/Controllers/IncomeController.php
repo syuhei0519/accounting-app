@@ -53,7 +53,6 @@ class IncomeController extends Controller
         Income::create([
             'id' => Str::uuid(),
             'category_id' => $request->category_id,
-            'user_id' => '56827c0a-92a2-4e7b-8ae9-180213c410da',
             'name' => $request->name,
             'comment' => $request->comment,
             'amount' => $request->amount,
