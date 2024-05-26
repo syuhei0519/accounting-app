@@ -6,12 +6,16 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
-const { spend } = usePage().props;
+const { spend, spendCategories, paymentWays, currentSpendCategory, currentPaymentWay } = usePage().props;
 
 const form = useForm({
+    currentSpendCategory: currentSpendCategory,
+    currentPaymentWay: currentPaymentWay,
+    category_id: spendCategories.id,
     name: spend.name,
     amount: spend.amount,
     comment: spend.comment,
+    payment_way_id: paymentWays.id,
     date: spend.date,
 });
 
@@ -35,6 +39,13 @@ const deleteSpend = () => {
         </template>
         <form @submit.prevent="submit">
             <div>
+                <InputLabel for="category_id" value="支出カテゴリー" />
+                <select v-model="form.currentSpendCategory" id="category_id" name="category_id">
+                    <option v-for="category in spendCategories" :key="category.id" :value="category.id">{{ category.name }}</option>
+                </select>
+                <InputError :message="form.errors.category_id" />
+            </div>
+            <div>
                 <InputLabel for="name" value="支出名" />
                 <TextInput v-model="form.name" type="text" name="name" id="name" />
                 <InputError :message="form.errors.name" />
@@ -43,6 +54,13 @@ const deleteSpend = () => {
                 <InputLabel for="amount" value="金額" />
                 <TextInput v-model="form.amount" type="number" name="amount" id="amount" />
                 <InputError :message="form.errors.amount" />
+            </div>
+            <div>
+                <InputLabel for="payment_way_id" value="決済方法" />
+                <select v-model="form.currentPaymentWay" id="payment_way_id" name="payment_way_id">
+                    <option v-for="paymentWay in paymentWays" :key="paymentWay.id" :value="paymentWay.id">{{ paymentWay.name }}</option>
+                </select>
+                <InputError :message="form.errors.payment_way_id" />
             </div>
             <div>
                 <InputLabel for="date" value="日付" />

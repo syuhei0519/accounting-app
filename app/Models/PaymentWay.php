@@ -20,8 +20,8 @@ class PaymentWay extends Model
     public $isRegisteredSpendByPaymentWay = false;
 
     //その決済方法で登録されている支出情報があるかどうかを判定
-    public function isRegisteredSpendByPaymentWay(string $categoryId) {
-        $spendCount = Spend::where('category_id', $categoryId)->count();
+    public function isRegisteredSpendByPaymentWay(string $paymentWayId) {
+        $spendCount = Spend::where('payment_way_id', $paymentWayId)->count();
         $this->isRegisteredSpendByPaymentWay = $spendCount > 0 ? true : false;
         return $this->isRegisteredSpendByPaymentWay;
     }

@@ -13,6 +13,7 @@ class Spend extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'id',
+        'payment_way_id',
         'category_id',
         'user_id',
         'name',

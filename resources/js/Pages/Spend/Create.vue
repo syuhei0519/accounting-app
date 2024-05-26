@@ -6,10 +6,11 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
-const { spend_categories } = usePage().props;
+const { spend_categories, payment_ways } = usePage().props;
 
 const form = useForm({
     category_id: spend_categories.id,
+    payment_way_id: payment_ways.id,
     name: '',
     amount: 0,
     comment: '',
@@ -45,6 +46,13 @@ const submit = () => {
                 <InputLabel for="amount" value="金額" />
                 <TextInput v-model="form.amount" type="number" name="amount" id="amount" />
                 <InputError :message="form.errors.amount" />
+            </div>
+            <div>
+                <InputLabel for="payment_way_id" value="決済方法" />
+                <select v-model="form.payment_way_id" id="payment_way_id">
+                    <option v-for="payment_way in payment_ways" :key="payment_way.id" :value="payment_way.id">{{ payment_way.name }}</option>
+                </select>
+                <InputError :message="form.errors.payment_way_id" />
             </div>
             <div>
                 <InputLabel for="date" value="日付" />

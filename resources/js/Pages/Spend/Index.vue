@@ -5,7 +5,7 @@ import { Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 
-const { spends } = usePage().props;
+const { spends, spendCategories, paymentWays } = usePage().props;
 
 </script>
 <template>
@@ -23,10 +23,16 @@ const { spends } = usePage().props;
             #
           </th>
           <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            カテゴリー
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
             名前
           </th>
           <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
             金額
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            決済方法
           </th>
           <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
             日付
@@ -45,10 +51,16 @@ const { spends } = usePage().props;
             {{ index + 1 }}
           </td>
           <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            {{ spendCategories.find(category => category.id === spend.category_id)?.name || 'カテゴリー未設定' }}
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
             {{ spend.name }}
           </td>
           <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
             {{ spend.amount.toLocaleString() }}円
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            {{ paymentWays.find(paymentWay => paymentWay.id === spend.payment_way_id)?.name || '未設定' }}
           </td>
           <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
             {{ new Date(spend.date).toLocaleDateString('ja-JP') }}

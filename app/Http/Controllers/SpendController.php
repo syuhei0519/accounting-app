@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PaymentWay;
 use App\Models\Spend;
 use App\Models\SpendCategory;
 use Illuminate\Http\Request;
@@ -22,8 +23,18 @@ class SpendController extends Controller
                'amount',
                'date',
                'comment',
-               'id'
-            ])
+               'id',
+               'category_id',
+               'payment_way_id'
+            ]),
+            'spendCategories' => SpendCategory::all([
+                'name',
+                'id'
+            ]),
+            'paymentWays' => PaymentWay::all([
+                'id',
+                'name'
+            ]),
         ]);
     }
 
@@ -32,7 +43,11 @@ class SpendController extends Controller
             'spend_categories' => SpendCategory::all([
                 'id',
                 'name'
-            ])
+            ]),
+            'payment_ways' => PaymentWay::all([
+                'id',
+                'name'
+            ]),
         ]);
     }
 
@@ -47,10 +62,10 @@ class SpendController extends Controller
         Spend::create([
             'id' => Str::uuid(),
             'category_id' => $request->category_id,
-            'user_id' => '56827c0a-92a2-4e7b-8ae9-180213c410da',
             'name' => $request->name,
             'comment' => $request->comment,
             'amount' => $request->amount,
+            'payment_way_id' => $request->payment_way_id,
             'date' => $request->date
         ]);
 
@@ -59,13 +74,25 @@ class SpendController extends Controller
 
     public function edit($spendId) {
         $spend = Spend::find($spendId);
+        $currentSpendCategory = $spend->category_id;
+        $currentPaymentWay = $spend->payment_way_id;
 
         if (!$spend) {
             abort(404, '支出情報は存在しません');
         }
 
         return Inertia::render('Spend/Edit', [
-            'spend' => $spend
+            'spend' => $spend,
+            'currentSpendCategory' => $currentSpendCategory,
+            'currentPaymentWay' => $currentPaymentWay,
+            'spendCategories' => SpendCategory::all([
+                'name',
+                'id'
+            ]),
+            'paymentWays' => PaymentWay::all([
+                'name',
+                'id'
+            ])
         ]);
     }
 
@@ -84,6 +111,8 @@ class SpendController extends Controller
         ]);
 
         $spend->update([
+            'category_id' => $request->currentSpendCategory,
+            'payment_way_id'=> $request->currentPaymentWay,
             'name' => $request->name,
             'comment' => $request->comment,
             'amount' => $request->amount,
